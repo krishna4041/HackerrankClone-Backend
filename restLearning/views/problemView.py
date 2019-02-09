@@ -34,13 +34,18 @@ class ProblemView(APIView):
 class Problem_by_ID(generics.ListAPIView):
     serializer_class = ProblemSerializers
     model = Problem
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
+        result ={}
         id = self.kwargs['id']
-        file = open("this_file.c","a")
-        file.close()
-        remove("this_file.c")
         queryset = self.model.objects.filter(id=id)
-        return queryset
+        result['problem_name'] = queryset[0].problem_name
+        result['problem_description'] = queryset[0].problem_description
+        result['problem_level'] = queryset[0].problem_level
+        result['problem_sampleInput'] = queryset[0].problem_sampleInput
+        result['problem_sampleOutput'] = queryset[0].problem_sampleOutput
+        result['problem_main_file'] = "".join(queryset[0].problem_main_file.open(mode="r").readlines())
+        result['problem_body_file'] = "".join(queryset[0].problem_body_file.open(mode="r").readlines())
+        return Response(result, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
 def CompileProblem(request, pk):

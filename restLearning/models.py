@@ -15,7 +15,7 @@ class Problem(models.Model):
     problem_body_file = models.FileField()
 
 class Text(models.Model):
-    text_box = models.CharField(max_length=100)
+    text_box = models.CharField(max_length=1000)
 
 
 

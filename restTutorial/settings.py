@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'restLearning.apps.RestlearningConfig',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,6 +53,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+CORS_ORIGIN_WHITELIST =  (
+    'google.com',
+    'hostname.example.com',
+    'localhost:3000',
+    'localhost:8000',
+    '127.0.0.1.8000'
+)
 ROOT_URLCONF = 'restTutorial.urls'
 
 TEMPLATES = [
